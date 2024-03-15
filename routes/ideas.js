@@ -44,4 +44,23 @@ router.get('/:id', (req, res) => {
   res.json({ success: true, data: idea });  // The response from the server - to transfer the data (a single idea) if there is one
 });
 
+// Add an idea
+router.post('/', (req, res) => {  // 127.0.0.1:5000/api/ideas
+  // res.send('Post success'); // The response from the API after sending the post  // This is just for testing purposes
+
+  const idea = {  // To create a new idea object  
+    id: ideas.length + 1, // To create a new id - increment
+    text: req.body.text,
+    tag: req.body.tag,
+    username: req.body.username,
+    date: new Date().toISOString().slice(0, 10),
+  };
+
+  console.log(idea);
+
+  ideas.push(idea);
+
+  res.json({ success: true, data: idea });
+});
+
 module.exports = router;  // To export the router
