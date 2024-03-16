@@ -33,7 +33,7 @@ router.get('/', (req, res) => {
 
 // Get single idea - http://127.0.0.1:5000/api/ideas/2
 router.get('/:id', (req, res) => {
-  const idea = ideas.find((idea) => idea.id === +req.params.id);  // req.params.id is a id as string -> to change it into a number we use the + sign
+  const idea = ideas.find((idea) => idea.id === +req.params.id);  // To find the idea // req.params.id is a id as string -> to change it into a number the + sign is used
 
   if (!idea) {  // If there is no idea in the ideas array
     return res  // Due to the return we don't need an else
@@ -61,6 +61,38 @@ router.post('/', (req, res) => {  // 127.0.0.1:5000/api/ideas
   ideas.push(idea);
 
   res.json({ success: true, data: idea });
+});
+
+// Update idea
+router.put('/:id', (req, res) => {
+  const idea = ideas.find((idea) => idea.id === +req.params.id);  // To find the idea to be updated
+
+  if (!idea) {
+    return res
+      .status(404)
+      .json({ success: false, error: 'Resource not found' });
+  }
+
+  idea.text = req.body.text || idea.text; // To update the text // req.body.tag -> what ever comes into the body  || idea.tag -> to keep the previous content if nothing was passed for the text in the request
+  idea.tag = req.body.tag || idea.tag;  // To update the tag  // req.body.tag -> what ever comes into the body  || idea.tag -> to keep the previous content if nothing was passed for the tag in the request
+
+  res.json({ success: true, data: idea });
+});
+
+// Delete idea
+router.delete('/:id', (req, res) => {
+  const idea = ideas.find((idea) => idea.id === +req.params.id);  // To find the idea to be deleted
+
+  if (!idea) {
+    return res
+      .status(404)
+      .json({ success: false, error: 'Resource not found' });
+  }
+
+  const index = ideas.indexOf(idea);  // To find the index of the idea to be deleted
+  ideas.splice(index, 1); // To delete the specific idea from the ideas array
+
+  res.json({ success: true, data: {} });
 });
 
 module.exports = router;  // To export the router
