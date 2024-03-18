@@ -1,3 +1,4 @@
+const path = require('path'); // To bring in the installed module ('path')
 const express = require('express'); // To bring in the installed module ('express')
 require('dotenv').config(); // To bring in the installed module ('dotenv') and call the config method of it
 const port = process.env.PORT || 5000;    // Connects to the port we set in .env (PORT=8000) - if it can't find it connect to port 5000
@@ -6,6 +7,9 @@ const connectDB = require('./config/db'); // To bring in the config file to conn
 connectDB();  // To call the function from the db.js file
 
 const app = express();  // Initialization
+
+// Static Folder
+app.use(express.static(path.join(__dirname, 'public')));  // To make the public folder (index.html) static
 
 // Body parser middleware - This way it is used in most APIs
 app.use(express.json());  // To be able to send json to the server
