@@ -8,13 +8,11 @@ connectDB();  // To call the function from the db.js file
 const app = express();  // Initialization
 
 // Body parser middleware - This way it is used in most APIs
-app.use(express.json());  // To be able to send json to the srver
+app.use(express.json());  // To be able to send json to the server
 app.use(express.urlencoded({ extended: false }));
 
 // "Welcome" rout
 app.get('/', (req, res) => {  // To create a route (get request -> type of rout (it also could be delete, post, put or get))  // / = index  // req = request object // res = response object
-  // res.send('Hello World');   // To get back a response from the rout (/)
-  // res.send({ message: 'Welcome to the RandomIdeas API' });
   res.json({ message: 'Welcome to the RandomIdeas API' });  // The response from the server - to transfer the data (Welcome message)
 });
 
