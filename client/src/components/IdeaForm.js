@@ -1,0 +1,54 @@
+class IdeaForm {
+  constructor() {
+    this._formModal = document.querySelector('#form-modal');  // To select the form
+  }
+
+  addEventListeners() {
+    this._form.addEventListener('submit', this.handleSubmit.bind(this));  // bind(this) to not pretain to the .this in the handleSubmit() method but on the class (IdeaForm)
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+
+    const idea = {  // Here, the input entered in the three input fields of the form is written to the object
+      // To target the three input fields of the form (Enter a Username, What's Your Idea? and Tag)
+      text: this._form.elements.text.value,
+      tag: this._form.elements.tag.value,
+      username: this._form.elements.username.value,
+    };
+
+    console.log(idea);  // Just to check whether the event listener is hooked up
+
+    // Clear fields after submit
+    this._form.elements.text.value = '';
+    this._form.elements.tag.value = '';
+    this._form.elements.username.value = '';
+
+    document.dispatchEvent(new Event('closemodal'));  // To be able to listen for this event in the Modal component // closemodal is just a made up name  // new Event to create a custom event (closemodal) (which we use in Modal.js (eventListener)) 
+    // document.addEventListener('closemodal', () => this.close()); - this is the code from Modal.js (to better understand)
+  }
+
+  render() {  // A method to create the form
+    this._formModal.innerHTML = `
+    <form id="idea-form">
+    <div class="form-control">
+      <label for="idea-text">Enter a Username</label>
+      <input type="text" name="username" id="username" />
+    </div>
+    <div class="form-control">
+      <label for="idea-text">What's Your Idea?</label>
+      <textarea name="text" id="idea-text"></textarea>
+    </div>
+    <div class="form-control">
+      <label for="tag">Tag</label>
+      <input type="text" name="tag" id="tag" />
+    </div>
+    <button class="btn" type="submit" id="submit">Submit</button>
+  </form>
+    `;
+    this._form = document.querySelector('#idea-form');  // To select the just created form
+    this.addEventListeners(); // To add an event listener to the just created form
+  }
+}
+
+export default IdeaForm;
