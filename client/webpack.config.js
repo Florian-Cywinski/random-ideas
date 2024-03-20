@@ -18,6 +18,16 @@ module.exports = {
     hot: true,
     compress: true,
     historyApiFallback: true,
+    // Proxy setup starts here
+    // proxy: {
+    //   // Proxying any requests to /api to localhost:4000 (backend API server)
+    //   '/api': {
+    //     target: 'http://localhost:4000',
+    //     secure: false,
+    //     changeOrigin: true,
+    //   },
+    // },
+    // Proxy setup ends here
   },
   module: {
     rules: [

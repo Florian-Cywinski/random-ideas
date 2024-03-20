@@ -8,4 +8,4 @@ const modal = new Modal();  // To instanciate the modal
 const ideaForm = new IdeaForm();    // To instanciate the idea form
 ideaForm.render();  // To call the method render on this object
 const ideaList = new IdeaList();    // To instanciate the idea list
-ideaList.render();  // It's just rendered here
+// ideaList.render();  // It's just rendered here
