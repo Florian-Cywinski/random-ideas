@@ -14,6 +14,19 @@ class IdeaForm {
   async handleSubmit(e) {
     e.preventDefault();
 
+    // Frontend validation - If any field is empty an alert pops up
+    if (
+      !this._form.elements.text.value ||
+      !this._form.elements.tag.value ||
+      !this._form.elements.username.value
+    ) {
+      alert('Please enter all fields');
+      return;
+    }
+
+    // Save user to local storage
+    localStorage.setItem('username', this._form.elements.username.value); // key, value
+    
     const idea = {  // Here, the input entered in the three input fields of the form is written to the object
       // To target the three input fields of the form (Enter a Username, What's Your Idea? and Tag)
       text: this._form.elements.text.value,
@@ -32,6 +45,8 @@ class IdeaForm {
     this._form.elements.tag.value = '';
     this._form.elements.username.value = '';
 
+    this.render();  // To render the form again after submitting a new idea
+
     document.dispatchEvent(new Event('closemodal'));  // To be able to listen for this event in the Modal component // closemodal is just a made up name  // new Event to create a custom event (closemodal) (which we use in Modal.js (eventListener)) 
     // document.addEventListener('closemodal', () => this.close()); - this is the code from Modal.js (to better understand)
   }
@@ -41,7 +56,9 @@ class IdeaForm {
     <form id="idea-form">
     <div class="form-control">
       <label for="idea-text">Enter a Username</label>
-      <input type="text" name="username" id="username" />
+      <input type="text" name="username" id="username" value="${
+        localStorage.getItem('username') ? localStorage.getItem('username') : ''
+      }" />
     </div>
     <div class="form-control">
       <label for="idea-text">What's Your Idea?</label>
