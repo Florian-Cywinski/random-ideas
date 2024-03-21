@@ -44,29 +44,56 @@ router.post('/', async (req, res) => {
 // Update (PUT) idea
 router.put('/:id', async (req, res) => {
   try {
-    const updatedIdea = await Idea.findByIdAndUpdate(
-      req.params.id,
-      {
-        $set: { // $set to target the keys to be updated
-          text: req.body.text,
-          tag: req.body.tag,
-          // username: req.body.username,   // I added this line of code
+    const idea = await Idea.findById(req.params.id);    // The get the idea to deleted by its id
+
+    // Match the usernames
+    if (idea.username === req.body.username) {  // if the username of the idea matches the typed in username
+      const updatedIdea = await Idea.findByIdAndUpdate(
+        req.params.id,
+        {
+          $set: { // $set to target the keys to be updated
+            text: req.body.text,
+            tag: req.body.tag,
+            // username: req.body.username,   // I added this line of code
+          },
         },
-      },
-      { new: true }
-    );
-    res.json({ success: true, data: updatedIdea });
+        { new: true }
+      );
+      return res.json({ success: true, data: updatedIdea });
+    }
+
+    // Usernames do not match
+    res
+    .status(403)  // 403 is unauthorized
+    .json({
+      success: false,
+      error: 'You are not authorized to update this resource',
+    });
+
   } catch (error) {
     console.log(error);
     res.status(500).json({ success: false, error: 'Something went wrong' });
   }
 });
 
-// Delete idea
+// Delete idea - // To just mimic a real validation with e.g. a token to delete an idea
 router.delete('/:id', async (req, res) => {
   try {
-    await Idea.findByIdAndDelete(req.params.id);
-    res.json({ success: true, data: {} });
+    const idea = await Idea.findById(req.params.id);    // The get the idea to deleted by its id
+
+    // Match the usernames
+    if (idea.username === req.body.username) {  // if the username of the idea matches the typed in username
+      await Idea.findByIdAndDelete(req.params.id);  // Deletes the idea with the matched username
+      return res.json({ success: true, data: {} }); // Hint from Will: It's important to return from an Express route handler so that you do not try and send back more than one response, which you cannot do.
+    }
+
+    // Usernames do not match
+    res
+      .status(403)  // 403 is unauthorized
+      .json({
+        success: false,
+        error: 'You are not authorized to delete this resource',
+      });
   } catch (error) {
     console.log(error);
     res.status(500).json({ success: false, error: 'Something went wrong' });
