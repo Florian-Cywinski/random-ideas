@@ -21,7 +21,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(
   cors({
     // origin: 'http://127.0.0.1:3000',
-    origin: ['http://localhost:4000', 'http://localhost:3000'], // To have an array with all allowed URLs
+    origin: ['http://localhost:5000', 'http://localhost:3000'], // To have an array with all allowed URLs
     credentials: true,
   })
 );

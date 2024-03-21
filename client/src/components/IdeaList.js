@@ -26,6 +26,11 @@ class IdeaList {
     }
   }
 
+  addIdeaToList(idea) {
+    this._ideas.push(idea);
+    this.render();
+  }
+
   getTagClass(tag) {  // To get the correct tag - To have for each tag / category a different color
     tag = tag.toLowerCase();
     let tagClass = '';  // To initialize the variable tagClass

@@ -1,13 +1,17 @@
+import IdeasApi from '../services/ideasApi';  // To bring in the IdeasAPI (with GET and POST)
+import IdeaList from './IdeaList';
+
 class IdeaForm {
   constructor() {
     this._formModal = document.querySelector('#form-modal');  // To select the form
+    this._ideaList = new IdeaList();  // To instanciate the list 
   }
 
   addEventListeners() {
     this._form.addEventListener('submit', this.handleSubmit.bind(this));  // bind(this) to not pretain to the .this in the handleSubmit() method but on the class (IdeaForm)
   }
 
-  handleSubmit(e) {
+  async handleSubmit(e) {
     e.preventDefault();
 
     const idea = {  // Here, the input entered in the three input fields of the form is written to the object
@@ -17,7 +21,11 @@ class IdeaForm {
       username: this._form.elements.username.value,
     };
 
-    console.log(idea);  // Just to check whether the event listener is hooked up
+    // Add idea to server
+    const newIdea = await IdeasApi.createIdea(idea);
+
+    // Add idea to list
+    this._ideaList.addIdeaToList(newIdea.data.data);  // newIdea.data returns the whole object -> the data we want are behind the key data
 
     // Clear fields after submit
     this._form.elements.text.value = '';

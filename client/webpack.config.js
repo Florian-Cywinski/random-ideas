@@ -22,7 +22,7 @@ module.exports = {
     // proxy: {
     //   // Proxying any requests to /api to localhost:4000 (backend API server)
     //   '/api': {
-    //     target: 'http://localhost:4000',
+    //     target: 'http://localhost:5000',
     //     secure: false,
     //     changeOrigin: true,
     //   },
