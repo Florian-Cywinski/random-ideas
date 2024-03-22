@@ -12,6 +12,22 @@ class IdeasApi {
   createIdea(data) {
     return axios.post(this._apiUrl, data);
   }
+
+  updateIdea(id, data) {
+    return axios.put(`${this._apiUrl}/${id}`, data);
+  }
+
+  deleteIdea(id) {
+    const username = localStorage.getItem('username')
+      ? localStorage.getItem('username')
+      : '';
+    return axios.delete(`${this._apiUrl}/${id}`, {
+      data: {
+        // username: username,
+        username,
+      },
+    });
+  }
 }
 
 export default new IdeasApi();  // To initialize it here instead of bring in to a file and do it there
