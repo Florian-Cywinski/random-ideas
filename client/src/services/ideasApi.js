@@ -2,7 +2,8 @@ import axios from 'axios';  // To import the installed package axios
 
 class IdeasApi {
   constructor() {
-    this._apiUrl = 'http://localhost:5000/api/ideas'; // To set the property
+    // this._apiUrl = 'http://localhost:5000/api/ideas';  // For development
+    this._apiUrl = '/api/ideas';  // For production
   }
 
   getIdeas() {

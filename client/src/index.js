@@ -1,4 +1,4 @@
-import '@fortawesome/fontawesome-free/css/all.css';
+// import '@fortawesome/fontawesome-free/css/all.css';
 import Modal from './components/Modal';         // To import the Modal class (constructor)
 import IdeaForm from './components/IdeaForm';   // To import the IdeaForm class (constructor)
 import IdeaList from './components/IdeaList';   // To import the IdeaList class (constructor)

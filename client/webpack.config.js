@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
-  mode: 'development',
+  mode: 'production',
   entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, '../public'),
@@ -18,7 +18,7 @@ module.exports = {
     hot: true,
     compress: true,
     historyApiFallback: true,
-    // Proxy setup starts here
+    // Proxy setup starts here (for development)
     // proxy: {
     //   // Proxying any requests to /api to localhost:4000 (backend API server)
     //   '/api': {
@@ -28,6 +28,10 @@ module.exports = {
     //   },
     // },
     // Proxy setup ends here
+    // Proxy setup for production
+    proxy: {
+      '/api': 'http://localhost:5000',
+    }
   },
   module: {
     rules: [
