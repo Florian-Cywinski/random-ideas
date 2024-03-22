@@ -2,7 +2,7 @@
 
 Vanilla JS app for random ideas - Backend and Frontend - from Brad Traversy's 'Modern JS From The Beginning' course.
 
-Try out the app :) - https://random-ideas-fc.netlify.app/
+Try out the app :) - https://random-ideas-a48k.onrender.com
 
 Development steps:
 
